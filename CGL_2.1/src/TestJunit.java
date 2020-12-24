@@ -2,15 +2,16 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.Test;
 public class TestJunit {
 	@Test
-	public void testOne() {
-		Board a = new Board();
-		a.printBoard(false);
-		a.createBoard(5);
+	public void createBoardTest() {
+		Board a = new Board(4,3,false);
+		int x[][] = {{0,2},{1,2},{2,1}};
+		a.createBoard(x);
+		String s = a.printBoard(board);
 		System.out.println("======TestCase One Passed======");
-		Assertions.assertSame("Created Conway Board",a.createBoard(5));
+		Assertions.assertSame(s,"..*.\n..*.\n.*..");
 	}
 	@Test
-	public void testTwo() {
+	public void nextGenerationTest() {
 		ConwaysGameOfLife c = new ConwaysGameOfLife();
 		c.generateNextGeneration();
 		System.out.println("======TestCase Two Passed======");
