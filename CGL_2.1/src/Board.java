@@ -1,51 +1,37 @@
 
-public class Board implements BoardIf{
-	private boolean newBoard[][];
-	private final int lenOfBoard;
-	private final int widOfBoard;
-	private boolean isStatusChange;
+public class Board{
+	public boolean[][] board;
 	
-	public Board(int lenOfBoard, int widOfBoard,boolean isStatuschange) {
-		this.lenOfBoard = lenOfBoard;
-		this.widOfBoard = widOfBoard;
-		this.isStatusChange = isStatusChange;
+	public boolean[][] createBoard(int l) {
+		if(l<0) { return null;}
+		boolean[][] board = new boolean[l][l];
+			for(int i=0;i<board.length;i++) {
+				for(int j=0;j<board.length;j++) {
+					board[i][j]=false;
+				}
+			}
+			return printBoard(board);
+		
 	}
-	public String printBoard(boolean board[][]) {
-		StringBuffer sb = new StringBuffer();
+	public boolean[][] printBoard(boolean board[][]) {
 		for(int i=0;i<board.length;i++)
 		{
 			for(int j=0;j<board[i].length;j++) 
 			{
-				if(board[i][j])
-					sb.append("*");
-				else
-					sb.append(".");
+				board[1][3] = true;
+				board[1][4] = true;
+				board[2][4] = true;	
+				board[5][3] = true;
+				board[5][4] = true;
+				board[6][2] = true;
+				board[6][3] = true;
+				board[7][5] = true;
+				board[8][4] = true;
+				
 			}
-			sb.append("\n");
+				
 		}
-		return(sb.toString());
+		return board;
+		
 	}
-	public void createBoard(int l[][]) {
-		boolean[][] board = new boolean[this.lenOfBoard][this.widOfBoard];
-		for(int i=0;i<this.lenOfBoard;i++) {
-			int row = l[i][0];
-			int col = l[i][1];
-			board[row][col] = true;
-		}
-		printBoard(board);
-	}
-	public boolean isStatusChange() {
-		return isStatusChange;
-	}
-	public void setStatus(boolean isStatusChange) {
-		this.isStatusChange = isStatusChange;
-	}
-	public int getBoardLen() {
-		return lenOfBoard;
-	}
-	public int getBoardWid() {
-		return widOfBoard;
-	}
-	
-	
 }
