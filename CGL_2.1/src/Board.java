@@ -4,15 +4,17 @@ public class Board{
 	
 	public boolean[][] createBoard(int l) {
 		if(l<0) { return null;}
-		boolean[][] board = new boolean[l][l];
-			for(int i=0;i<board.length;i++) {
-				for(int j=0;j<board.length;j++) {
-					board[i][j]=false;
+		else {
+			boolean[][] board = new boolean[l][l];
+				for(int i=0;i<board.length;i++) {
+					for(int j=0;j<board.length;j++) {
+						board[i][j]=false;
+					}
 				}
-			}
 			return printBoard(board);
+			}
 		
-	}
+		}
 	public boolean[][] printBoard(boolean board[][]) {
 		for(int i=0;i<board.length;i++)
 		{
