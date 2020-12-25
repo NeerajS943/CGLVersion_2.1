@@ -1,5 +1,5 @@
 
-public class ConwaysGameOfLife extends Board {
+public class ConwaysGameOfLife {
 
 	public int countLiveCells(boolean[][] now, int a, int b) {
 		int c = now.length;
@@ -18,6 +18,9 @@ public class ConwaysGameOfLife extends Board {
 	public String generateNextGeneration(boolean now[][],int x) {
 		int n = now.length;
         boolean[][] newBoard = new boolean[n][n];
+        if(x<=0) {
+        	return "Iteration can't be performed.";
+        }
         for(int a=0;a<x;a++) {
         	for(int i=0;i<n;i++){
         		for(int j=0;j<n;j++){

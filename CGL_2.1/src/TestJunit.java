@@ -10,15 +10,27 @@ public class TestJunit {
 	}
 	@Test
 	public void cglTestOne(){
-		Board b = new ConwaysGameOfLife();
+		Board b = new Board();
+		b.createBoard(10);
+		ConwaysGameOfLife cgl = new ConwaysGameOfLife();
 		System.out.println("=====TESTCASE TWO EXECUTED=====");
-		Assertions.assertEquals("..........\n...**.....\n...**.....\n..........\n..........\n..***.....\n..**......\n...**.....\n..........\n..........\n",((ConwaysGameOfLife) b).generateNextGeneration(b.createBoard(10),1));
+		Assertions.assertEquals("..........\n...**.....\n...**.....\n..........\n..........\n..***.....\n..**......\n...**.....\n..........\n..........\n",(cgl.generateNextGeneration(b.createBoard(10),1)));
 	}
 	@Test
 	public void cglTestTwo() {
-		Board b = new ConwaysGameOfLife();
+		Board b = new Board();
+		b.createBoard(10);
+		ConwaysGameOfLife cgl = new ConwaysGameOfLife();
 		System.out.println("=====TESTCASE THREE EXECUTED=====");
-		Assertions.assertEquals("..........\n...**.....\n...**.....\n..........\n...**.....\n....*.....\n..*.**....\n...***....\n....**....\n..........\n",((ConwaysGameOfLife) b).generateNextGeneration(b.createBoard(10),2));
+		Assertions.assertEquals("..........\n...**.....\n...**.....\n..........\n...**.....\n....*.....\n..*.**....\n...***....\n....**....\n..........\n",(cgl.generateNextGeneration(b.createBoard(10),2)));
 		
+	}
+	@Test 
+	public void cglTestThree() {
+		Board b = new Board();
+		b.createBoard(10);
+		ConwaysGameOfLife cgl = new ConwaysGameOfLife();
+		System.out.println("=====TESTCASE FOUR EXECUTED=====");
+		Assertions.assertEquals("Iteration can't be performed.",(cgl.generateNextGeneration(b.createBoard(10),-3)));
 	}
 }
