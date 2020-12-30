@@ -338,7 +338,24 @@ public class UserInterface {
 		// Use the toggle to flip back and forth between the current generation and next generation boards.
 		
 		// Your code goes here...
+		evenGameBoard = oddGameBoard;
+		window.getChildren().remove(oddCanvas);
+		if(toggle) {
+			oddCanvas.getChildren().clear();
+			window.getChildren().remove(oddCanvas);
+			oddGameBoard.generateNextGeneration();
+			populateCanvas(evenCanvas);
+			toggle = false;
+		}
+		else {
+			evenCanvas.getChildren().clear();
+			window.getChildren().remove(evenCanvas);
+			oddGameBoard.generateNextGeneration();
+			populateCanvas(oddCanvas);
+			toggle = true;
+		}
 	}
+	
 
 	/**********
 	 * This method reads in the contents of the data file and discards it as quickly as it reads it
