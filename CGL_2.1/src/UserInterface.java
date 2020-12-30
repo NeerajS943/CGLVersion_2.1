@@ -269,20 +269,20 @@ public class UserInterface {
 	private void loadImageData() {
 		try {
 			// Your code goes here......
-			Scanner scan = new Scanner(new File(fileName));
+			Scanner scan = new Scanner(new File(str_FileName));
 			ArrayList<Integer> list = new ArrayList<Integer>();
 			while(scan.hasNext()) {
 				list.add(scan.nextInt());
 			}
-			int [][] livecells = new int[list.size/2][2];
+			int [][] liveCells = new int[list.size()/2][2];
 			int k = 0;
 			for(int i=0;i<list.size()/2;i++) {
 				liveCells[i][0] = list.get(k++);
 				liveCells[i][1] = list.get(k++);
 			}
-			System.out.println(Arrays.deepToString(livecells));
+			System.out.println(Arrays.deepToString(liveCells));
 			oddGameBoard .createBoard(liveCells);
-			populateCanvas(oddCanvas);
+			populateCanvas(oddCanvas,liveCells);
 			
 		}
 		catch (Exception e)  {
@@ -293,14 +293,14 @@ public class UserInterface {
 		button_Start.setDisable(false);				// Enable the Start button
 	};												// and wait for the User to press it.
 	
-	private void populateCanvas(Pane canvas) {
-		String s = oddGameBoard.printBoard();
-		System.out.println(s);
+	private void populateCanvas(Pane canvas,int [][] x) {
+		boolean[][] s = oddGameBoard.createBoard(100,x);
+		//System.out.println(s);
 		int a=0;
-		String[] lines = s.split("\n");
+		//String[] lines = s.split("\n");
 		for(int x=0; x<lines.length-1;x++) {
 			for(int y=0; y<lines.length()-1;y++) {
-				if(lines[x].charAt(y)=='*') {
+				if(s[x][y]) {
 					a = a+1;
 					Rectangle rc =new Rectangle(6*y+20,6*x+20,5,5);
 					canvas.getChildren().add(rc);
@@ -338,7 +338,7 @@ public class UserInterface {
 		// Use the toggle to flip back and forth between the current generation and next generation boards.
 		
 		// Your code goes here...
-		evenGameBoard = oddGameBoard;
+		/**evenGameBoard = oddGameBoard;
 		window.getChildren().remove(oddCanvas);
 		if(toggle) {
 			oddCanvas.getChildren().clear();
@@ -353,7 +353,8 @@ public class UserInterface {
 			oddGameBoard.generateNextGeneration();
 			populateCanvas(oddCanvas);
 			toggle = true;
-		}
+		}**/
+		populateCanvas(oddCanvas,null);
 	}
 	
 
