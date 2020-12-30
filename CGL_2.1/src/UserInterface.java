@@ -281,7 +281,7 @@ public class UserInterface {
 				liveCells[i][1] = list.get(k++);
 			}
 			System.out.println(Arrays.deepToString(liveCells));
-			oddGameBoard .createBoard(liveCells);
+			oddGameBoard.createBoard(liveCells);
 			populateCanvas(oddCanvas,liveCells);
 			
 		}
