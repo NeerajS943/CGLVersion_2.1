@@ -2,6 +2,8 @@
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 import javafx.animation.Animation;
@@ -267,6 +269,20 @@ public class UserInterface {
 	private void loadImageData() {
 		try {
 			// Your code goes here......
+			Scanner scan = new Scanner(new File(fileName));
+			ArrayList<Integer> list = new ArrayList<Integer>();
+			while(scan.hasNext()) {
+				list.add(scan.nextInt());
+			}
+			int [][] livecells = new int[list.size/2][2];
+			int k = 0;
+			for(int i=0;i<list.size()/2;i++) {
+				liveCells[i][0] = list.get(k++);
+				liveCells[i][1] = list.get(k++);
+			}
+			System.out.println(Arrays.deepToString(livecells));
+			oddGameBoard .createBoard(liveCells);
+			populateCanvas(oddCanvas);
 			
 		}
 		catch (Exception e)  {
@@ -276,7 +292,22 @@ public class UserInterface {
 		button_Load.setDisable(true);				// Disable the Load button, since it is done
 		button_Start.setDisable(false);				// Enable the Start button
 	};												// and wait for the User to press it.
-
+	
+	private void populateCanvas(Pane canvas) {
+		String s = oddGameBoard.printBoard();
+		System.out.println(s);
+		int a=0;
+		String[] lines = s.split("\n");
+		for(int x=0; x<lines.length-1;x++) {
+			for(int y=0; y<lines.length()-1;y++) {
+				if(lines[x].charAt(y)=='*') {
+					a = a+1;
+					Rectangle rc =new Rectangle(6*y+20,6*x+20,5,5);
+					canvas.getChildren().add(rc);
+				}
+			}
+		}
+	}
 	/**********
 	 * This method removes the start button, sets up the stop button, and starts the simulation
 	 */

@@ -2,7 +2,7 @@
 public class Board{
 	public boolean[][] board;
 	
-	public boolean[][] createBoard(int l) {
+	public boolean[][] createBoard(int l,int n[][]) {
 		if(l<0) { return null;}
 		else {
 			boolean[][] board = new boolean[l][l];
@@ -11,12 +11,20 @@ public class Board{
 						board[i][j]=false;
 					}
 				}
-			return printBoard(board);
+			return printBoard(board,n);
 			}
 		
 		}
-	public boolean[][] printBoard(boolean board[][]) {
-		for(int i=0;i<board.length;i++)
+	public boolean[][] printBoard(boolean board[][],int s[][]) {
+		for(int i=0;i<s.length;i++) {
+			int a = s[i][0];
+			int b = s[i][1];
+			board[a][b]=true;
+		}
+		return board;
+	}
+	
+		/**for(int i=0;i<board.length;i++)
 		{
 			for(int j=0;j<board[i].length;j++) 
 			{
@@ -35,5 +43,5 @@ public class Board{
 		}
 		return board;
 		
-	}
+	}**/
 }
