@@ -1,4 +1,3 @@
-
 public class ConwaysGameOfLife {
 
 	public int countLiveCells(boolean[][] now, int a, int b) {

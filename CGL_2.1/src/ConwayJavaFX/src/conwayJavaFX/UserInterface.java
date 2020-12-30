@@ -1,9 +1,7 @@
-
+package conwayJavaFX;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 import javafx.animation.Animation;
@@ -79,10 +77,10 @@ public class UserInterface {
 	// These attributes define the Board used by the simulation and the graphical representation
 	// There are two Boards. The previous Board and the new Board.  Once the new Board has been
 	// displayed, it becomes the previous Board for the generation of the next new Board.
-	//private Board oddGameBoard = new Board();		// The Board for odd frames of the animation
+	private Board oddGameBoard = new Board();		// The Board for odd frames of the animation
 	private Pane oddCanvas = new Pane();			// Pane that holds its graphical representation
 	
-	//private Board evenGameBoard =  new Board();	// The Board for even frames of the animation
+	private Board evenGameBoard =  new Board();	// The Board for even frames of the animation
 	private Pane evenCanvas = new Pane();			// Pane that holds its graphical representation
 
 	private boolean toggle = true;					// A two-state attribute that specifies which
@@ -269,21 +267,24 @@ public class UserInterface {
 	private void loadImageData() {
 		try {
 			// Your code goes here......
+			str_FileName = text_FileName.getText();
 			Scanner scan = new Scanner(new File(str_FileName));
-			ArrayList<Integer> list = new ArrayList<Integer>();
-			while(scan.hasNext()) {
-				list.add(scan.nextInt());
+			int count = 0;
+			while(scan.hasNextLine()) {
+				String[] s = scan.nextLine().split(" ");
+				count++;
 			}
-			int [][] liveCells = new int[list.size()/2][2];
-			int k = 0;
-			for(int i=0;i<list.size()/2;i++) {
-				liveCells[i][0] = list.get(k++);
-				liveCells[i][1] = list.get(k++);
+			int l[][] = new int[count][2];
+			scan = new Scanner(new File(str_FileName));
+			int i = 0;
+			while(scan.hasNextLine()) {
+				String[] s = scan.nextLine().split(" ");
+				l[i][0] = Integer.parseInt(s[0]);
+				l[i][1] = Integer.parseInt(s[1]);
+				i++;
 			}
-			System.out.println(Arrays.deepToString(liveCells));
-			oddGameBoard.createBoard(liveCells);
-			populateCanvas(oddCanvas,liveCells);
-			
+			oddGameBoard.createBoard(l);
+			draw();
 		}
 		catch (Exception e)  {
 			// Since we have already done this check, this exception should never happen
@@ -292,22 +293,7 @@ public class UserInterface {
 		button_Load.setDisable(true);				// Disable the Load button, since it is done
 		button_Start.setDisable(false);				// Enable the Start button
 	};												// and wait for the User to press it.
-	
-	private void populateCanvas(Pane canvas,int [][] x) {
-		boolean[][] s = oddGameBoard.createBoard(100,x);
-		//System.out.println(s);
-		int a=0;
-		//String[] lines = s.split("\n");
-		for(int x=0; x<lines.length-1;x++) {
-			for(int y=0; y<lines.length()-1;y++) {
-				if(s[x][y]) {
-					a = a+1;
-					Rectangle rc =new Rectangle(6*y+20,6*x+20,5,5);
-					canvas.getChildren().add(rc);
-				}
-			}
-		}
-	}
+
 	/**********
 	 * This method removes the start button, sets up the stop button, and starts the simulation
 	 */
@@ -338,25 +324,16 @@ public class UserInterface {
 		// Use the toggle to flip back and forth between the current generation and next generation boards.
 		
 		// Your code goes here...
-		/**evenGameBoard = oddGameBoard;
-		window.getChildren().remove(oddCanvas);
 		if(toggle) {
-			oddCanvas.getChildren().clear();
-			window.getChildren().remove(oddCanvas);
-			oddGameBoard.generateNextGeneration();
-			populateCanvas(evenCanvas);
+			oddGameBoard.nextGeneration(evenGameBoard);
 			toggle = false;
 		}
 		else {
-			evenCanvas.getChildren().clear();
-			window.getChildren().remove(evenCanvas);
-			oddGameBoard.generateNextGeneration();
-			populateCanvas(oddCanvas);
+			evenGameBoard.nextGeneration(oddGameBoard);
 			toggle = true;
-		}**/
-		populateCanvas(oddCanvas,null);
+		}
+		draw();
 	}
-	
 
 	/**********
 	 * This method reads in the contents of the data file and discards it as quickly as it reads it
